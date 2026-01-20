@@ -12,7 +12,7 @@ interface AuthContextValue {
   token: string | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (token: string, user: User) => Promise<void>;
+  login: (token: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -28,10 +28,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     (async () => {
       try {
         const storedToken = await SecureStore.getItemAsync('authToken');
-        const storedUser = await SecureStore.getItemAsync('userData');
-        if (mounted && storedToken && storedUser) {
+        // const storedUser = await SecureStore.getItemAsync('userData');
+        if (mounted && storedToken) {
           setToken(storedToken);
-          setUser(JSON.parse(storedUser));
+          // setUser(JSON.parse(storedUser));
         }
       } catch (e) {
         // ignore
@@ -42,18 +42,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => { mounted = false; };
   }, []);
 
-  const login = useCallback(async (newToken: string, newUser: User) => {
+  const login = useCallback(async (newToken: string) => {
     await SecureStore.setItemAsync('authToken', newToken);
-    await SecureStore.setItemAsync('userData', JSON.stringify(newUser));
+    // await SecureStore.setItemAsync('userData', JSON.stringify(newUser));
     setToken(newToken);
-    setUser(newUser);
+    // setUser(newUser);
   }, []);
 
   const logout = useCallback(async () => {
     await SecureStore.deleteItemAsync('authToken');
-    await SecureStore.deleteItemAsync('userData');
+    // await SecureStore.deleteItemAsync('userData');
     setToken(null);
-    setUser(null);
+    // setUser(null);
   }, []);
 
   return (
