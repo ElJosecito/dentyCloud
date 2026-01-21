@@ -1,6 +1,6 @@
 // exportar detalles de cita
-import AppointmentDetailsScreen from '../../../src/features/appointments/screens/AppointmentsListScreen';
+import AppointmentDetailScreen from '../../../src/features/appointments/screens/AppointmentDetailScreen';
 
 export default function AppointmentDetails() {
-  return <AppointmentDetailsScreen />;
+  return <AppointmentDetailScreen />;
 }

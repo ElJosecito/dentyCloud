@@ -1,7 +1,17 @@
-import { Slot } from 'expo-router';
+import { Stack } from 'expo-router';
 
 export default function AppointmentsLayout() {
   return (
-      <Slot />
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: true,
+        fullScreenGestureEnabled: true,
+        animation: 'slide_from_right',
+      }}
+    >
+      <Stack.Screen name="index" />
+      <Stack.Screen name="[id]" />
+    </Stack>
   );
 }

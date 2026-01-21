@@ -1,6 +1,6 @@
-// exportar lista de citas
-import AppointmentsListScreen from '../../../src/features/appointments/screens/AppointmentsListScreen';
+// exportar lista de empleados
+import EmployeesListScreen from '../../../src/features/employees/screens/EmployeesListScreen';
 
-export default function AppointmentsIndex() {
-  return <AppointmentsListScreen />;
+export default function EmployeesIndex() {
+  return <EmployeesListScreen />;
 }
