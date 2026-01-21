@@ -12,6 +12,7 @@ export const getStyles = (colors: any) =>
     },
     primary: {
       backgroundColor: colors.primary ?? "#2563EB",
+      borderRadius:9999,
     },
     secondary: {
       backgroundColor: "transparent",

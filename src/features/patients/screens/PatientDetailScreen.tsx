@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Linking, Modal } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Linking, Modal, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import ScreenWrapper from '@/shared/components/ScreenWrapper/ScreenWrapper';
 import MyText from '@/shared/components/Text/MyText';
 import Avatar from '@/shared/components/AvatarPicture/Avatar';
 import CustomIcon from '@/shared/components/customIcon/CustomIcon';
+import type { IconName } from '@/shared/components/customIcon/types';
 import { colors } from '@/shared/constants/index';
 import { formattedDate } from '@/shared/utils/utils';
-import AppointmentCard from '@/shared/components/AppointmentCard';
 import CreatePatient from './CreatePatient';
+import { removePatient } from '../service';
 
 interface RowInterface {
-  icon: string;
+  icon: IconName;
   label: string;
   value: string;
   isLast?: boolean;
@@ -41,26 +42,36 @@ const PatientDetailScreen = () => {
     router.back();
   };
 
-  // Datos mockeados para campos que no vienen de la API
+  const handleDelete = () => {
+    Alert.alert(
+      'Eliminar Paciente',
+      `¿Estás seguro de que deseas eliminar a ${nombres} ${apellidos}?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Eliminar',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await removePatient(parseInt(id as string));
+              router.back();
+            } catch (error) {
+              console.error('Error deleting patient:', error);
+              Alert.alert('Error', 'No se pudo eliminar el paciente');
+            }
+          },
+        },
+      ]
+    );
+  };
+
+
+  // dummy data, para llenar pantalla
   const mockData = {
     telefono: '+1234567890',
     email: 'john.doe@example.com',
     direccion: '123 Main St, City',
   };
-
-  // dummy data
-  const historyOfAppointments = [
-    { date: '2023-01-15', reason: 'General Checkup', status: 'Completed', doctor: 'Dr. Smith' },
-    { date: '2023-03-22', reason: 'Dental Cleaning', status: 'Completed', doctor: 'Dr. Brown' },
-    { date: '2023-06-10', reason: 'Follow-up Visit', status: 'Scheduled', doctor: 'Dr. Smith' },
-  ];
-
-  interface RowInterface {
-    icon: string;
-    label: string;
-    value: string;
-    isLast?: boolean;
-  }
 
   return (
     <ScreenWrapper
@@ -76,7 +87,7 @@ const PatientDetailScreen = () => {
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <CustomIcon name="ChevronLeft" size={24} color={colors.text.primary} />
         </TouchableOpacity>
-        <MyText type="h3" bold style={{ color: colors.background }}>
+        <MyText type="h3" style={[{ color: colors.background, fontWeight: 'bold' }]}>
           Detalle del Paciente
         </MyText>
         <TouchableOpacity style={styles.editBtn} onPress={() => setEditModalVisible(true)}>
@@ -87,7 +98,7 @@ const PatientDetailScreen = () => {
       {/* Avatar y nombre */}
       <View style={styles.profileSection}>
         <Avatar name={nombres} size={80} />
-        <MyText type="h2" bold style={styles.nameText}>
+        <MyText type="h2" style={[styles.nameText, { fontWeight: 'bold' }]}>
           {nombres} {apellidos}
         </MyText>
       </View>
@@ -124,7 +135,7 @@ const PatientDetailScreen = () => {
 
       {/* Información personal */}
       <View style={styles.section}>
-        <MyText type="h4" bold style={styles.sectionTitle}>
+        <MyText type="h4" style={[styles.sectionTitle, { fontWeight: 'bold' }]}>
           Información Personal
         </MyText>
 
@@ -137,30 +148,12 @@ const PatientDetailScreen = () => {
         </View>
       </View>
 
-      {/* historial de citas */}
-      <View >
-        <MyText type="h4" bold style={styles.sectionTitle}>
-          Historial de Citas
-        </MyText>
-
-        {historyOfAppointments.length === 0 ? (
-          <View style={styles.emptyState}>
-            <CustomIcon name="CalendarOff" size={40} color={colors.text.secondary} />
-            <MyText type="body2" style={styles.emptyText}>
-              No hay citas registradas.
-            </MyText>
-          </View>
-        ) : (
-          <View>
-            {historyOfAppointments.map((appointment, index) => (
-              <AppointmentCard
-                key={index}
-                appointment={appointment}
-                isLast={index === historyOfAppointments.length - 1}
-              />
-            ))}
-          </View>
-        )}
+      {/* Botón Eliminar */}
+      <View style={styles.deleteContainer}>
+        <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+          <CustomIcon name="Trash2" size={20} color={colors.error} />
+          <MyText type="body" style={styles.deleteText}>Eliminar Paciente</MyText>
+        </TouchableOpacity>
       </View>
 
       {/* Modal de Edición */}
@@ -195,7 +188,7 @@ const InfoRow = ({icon, label, value, isLast} : RowInterface ) => (
         {label}
       </MyText>
     </View>
-    <MyText type="body2" bold style={styles.infoValue}>
+    <MyText type="body2" style={[styles.infoValue, { fontWeight: 'bold' }]}>
       {value}
     </MyText>
   </View>
@@ -313,6 +306,25 @@ const styles = StyleSheet.create({
   emptyText: {
     marginTop: 12,
     color: colors.text.secondary,
+  },
+  deleteContainer: {
+    marginTop: 24,
+    marginBottom: 24,
+  },
+  deleteButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingVertical: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.error + '30',
+    backgroundColor: colors.error + '10',
+  },
+  deleteText: {
+    color: colors.error,
+    fontWeight: '600',
   },
   modalOverlay: {
     flex: 1,

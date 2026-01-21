@@ -1,11 +1,7 @@
-export type Appointment = {
-  date: string;
-  reason: string;
-  status: string;
-  doctor?: string;
-};
+import type { Appointment } from '@/api/appointments';
 
 export type AppointmentCardProps = {
   appointment: Appointment;
+  onPress?: () => void;
   isLast?: boolean;
 };

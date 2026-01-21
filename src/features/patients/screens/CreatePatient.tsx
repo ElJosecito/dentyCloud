@@ -135,7 +135,7 @@ const CreatePatient = ({ onSuccess, initialData, isEditMode = false }: CreatePat
     <View
         style={{ padding: 16, backgroundColor: colors.background, paddingBottom: insets.bottom }}
     >
-      <MyText type='h1' bold style={{ marginBottom: 24 }}>
+      <MyText type='h1' style={{ marginBottom: 24, fontWeight: 'bold' }}>
         {isEditMode ? 'Editar Paciente' : 'Crear Paciente'}
       </MyText>
 
@@ -190,7 +190,7 @@ const CreatePatient = ({ onSuccess, initialData, isEditMode = false }: CreatePat
                     <MyText type='body' style={{ color: colors.error }}>Cancelar</MyText>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={confirmDate}>
-                    <MyText type='body' bold style={{ color: colors.primary }}>Confirmar</MyText>
+                    <MyText type='body' style={{ color: colors.primary, fontWeight: 'bold' }}>Confirmar</MyText>
                   </TouchableOpacity>
                 </View>
                 <DateTimePicker

@@ -10,7 +10,6 @@ export const fetchPatients = async (): Promise<Patient[]> => {
   }
 };
 
-
 export const fetchPatientsPaginated = async (page: number, limit: number): Promise<{ patients: Patient[]; total: number }> => {
   try {
     const data = await getPatientsPaginated(page, limit);

@@ -19,7 +19,7 @@ const PersonCard: React.FC<PersonCardProps> = ({ patient, onPhonePress, onCardPr
       <View style={styles.cardLeft}>
         <Avatar name={patient.nombres} size={48} />
         <View style={styles.nameBlock}>
-          <MyText type='body' bold style={styles.nameText}>
+          <MyText type='body' style={[styles.nameText, { fontWeight: 'bold' }]}>
             {patient.nombres} {patient.apellidos}
           </MyText>
           <MyText type='caption2' style={styles.subText}>

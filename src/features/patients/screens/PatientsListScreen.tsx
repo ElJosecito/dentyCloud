@@ -24,7 +24,6 @@ const PatientsListScreen = () => {
     try {
       const data = await fetchPatients();
       setPatients(data);
-      // console.log('Fetched patients:', data);
     } catch (error) {
       console.error('Error fetching patients:', error);
     }
@@ -35,6 +34,7 @@ const PatientsListScreen = () => {
     setModalVisible(false);
   };
 
+  //funcion para actualizar la lista cada que se entre a la pantalla
   useFocusEffect(
     useCallback(() => {
       loadPatients();
@@ -50,8 +50,8 @@ const PatientsListScreen = () => {
       scrollable={false}
       style={{ backgroundColor: colors.background }}
     >
-      <View style={{ marginBottom: 24, justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row',  }}>
-        <MyText type='h1' bold>
+      <View style={{ marginBottom: 16, justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row',  }}>
+        <MyText type='h1' style={{ fontWeight: 'bold' }}>
           Pacientes
         </MyText>
         <TouchableOpacity 
@@ -63,7 +63,7 @@ const PatientsListScreen = () => {
       </View>
 
       {/* search */}
-      <View style={{ marginBottom: 16, marginTop: 8 }}>
+      <View style={{ marginBottom: 16 }}>
         <MyInput
           placeholder='Buscar pacientes...'
           LeftIcon={<CustomIcon name='Search' size={20} color={colors.text?.secondary} />}
