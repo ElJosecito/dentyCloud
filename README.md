@@ -132,6 +132,9 @@ dentyCloud/
 ├── package.json                  # Dependencias
 └── tsconfig.json                 # Configuración de TypeScript
 ```
+##  Explicacion
+
+He elegido esta estructura y arquitectura porque es la mas nativa posible, permitiendo que la app sea un poco mas rapida y mejor organizada, el no depender de una libreria externa ayuda a que si esa libreria dejase de funcionar por alguna razon el proyecto siga funcionando correctamente.
 
 ## 🔐 Autenticación
 
