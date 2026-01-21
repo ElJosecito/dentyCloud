@@ -28,7 +28,10 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "API_BASE_URL": "http://localhost:3000/api"
+      "API_BASE_URL": "http://localhost:3000/api",
+      "eas": {
+        "projectId": "19ee4af6-fc45-4e49-97bc-efcb27464c6c"
+      }
     }
   }
 }
