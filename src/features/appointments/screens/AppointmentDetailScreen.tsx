@@ -41,6 +41,7 @@ const AppointmentDetailScreen = () => {
     router.back();
   };
 
+  //funcion para eliminar cita
   const handleDelete = () => {
     Alert.alert(
       'Eliminar Cita',

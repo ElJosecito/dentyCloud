@@ -36,12 +36,14 @@ const PatientDetailScreen = () => {
     sexo,
   });
 
+  //funcion para manejar success de edicion
   const handleEditSuccess = () => {
     setEditModalVisible(false);
     // Actualizar datos locales (idealmente re-fetch desde API)
     router.back();
   };
 
+  //funcion para eliminar paciente
   const handleDelete = () => {
     Alert.alert(
       'Eliminar Paciente',
@@ -66,7 +68,7 @@ const PatientDetailScreen = () => {
   };
 
 
-  // dummy data, para llenar pantalla
+  // dummy data, para llenar pantalla, esta data es para que la pantalla se vea completa
   const mockData = {
     telefono: '+1234567890',
     email: 'john.doe@example.com',

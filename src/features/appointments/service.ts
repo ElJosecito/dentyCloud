@@ -22,22 +22,18 @@ export const fetchAppointmentsPaginated = async (page: number, limit: number): P
 
 export const addAppointment = async (appointment: CreateAppointmentPayload): Promise<Appointment> => {
   try {
-    // console.log('Creating appointment with payload:', JSON.stringify(appointment, null, 2));
     const newAppointment = await createAppointment(appointment);
     return newAppointment;
   } catch (error: any) {
-    // console.log('Error creating appointment:', error?.response?.data || error.message);
     throw error;
   }
 };
 
 export const editAppointment = async (appointment: UpdateAppointmentPayload): Promise<Appointment> => {
   try {
-    // console.log('Updating appointment with payload:', JSON.stringify(appointment, null, 2));
     const updatedAppointment = await updateAppointment(appointment);
     return updatedAppointment;
   } catch (error: any) {
-    // console.log('Error updating appointment:', error?.response?.data || error.message);
     throw error;
   }
 };

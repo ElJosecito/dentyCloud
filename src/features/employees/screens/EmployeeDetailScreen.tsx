@@ -16,12 +16,14 @@ const EmployeeDetailScreen = () => {
   const [employee, setEmployee] = useState<Employee | null>(null);
   const [editModalVisible, setEditModalVisible] = useState(false);
 
+  //efecto para cargar empleado al iniciar
   useEffect(() => {
     if (id) {
       loadEmployee();
     }
   }, [id]);
 
+  //funcion para cargar empleado
   const loadEmployee = async () => {
     try {
       const data = await fetchEmployeeById(parseInt(id as string));
@@ -31,6 +33,7 @@ const EmployeeDetailScreen = () => {
     }
   };
 
+  //funcion para eliminar empleado
   const handleDelete = () => {
     Alert.alert(
       'Eliminar Empleado',

@@ -73,6 +73,7 @@ const CreateAppointment: React.FC<CreateAppointmentProps> = ({ onSuccess, initia
   
   const [loading, setLoading] = useState(false);
 
+  // Efecto para cargar pacientes y empleados al montar el componente
   useEffect(() => {
     loadPatients();
     loadEmployees();

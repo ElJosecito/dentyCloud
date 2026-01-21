@@ -23,12 +23,14 @@ const CreateEmployee = ({ onSuccess, initialData, isEditMode = false }: CreateEm
   const [nombreCompleto, setNombreCompleto] = useState(initialData?.nombreCompleto || '');
   const [loading, setLoading] = useState(false);
 
+  //efectt para poblar datos de edicion
   useEffect(() => {
     if (initialData) {
       setNombreCompleto(initialData.nombreCompleto || '');
     }
   }, [initialData]);
 
+  // Función para manejar el guardado del empleado
   const handleSave = async () => {
     if (!nombreCompleto.trim()) {
       alert('Por favor ingrese el nombre completo');

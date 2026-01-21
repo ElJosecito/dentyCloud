@@ -16,6 +16,8 @@ const EmployeesListScreen = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
 
+
+  //funcion para cargar los empleados
   const loadEmployees = async () => {
     try {
       const data = await fetchEmployees();
@@ -25,11 +27,14 @@ const EmployeesListScreen = () => {
     }
   };
 
+  //funcion para manejar exito de creacion
   const handleEmployeeCreated = () => {
     loadEmployees();
     setModalVisible(false);
   };
 
+
+  //funcion para actualizar la lista cada que se entre a la pantalla
   useFocusEffect(
     useCallback(() => {
       loadEmployees();

@@ -20,6 +20,7 @@ const PatientsListScreen = () => {
   const [patients, setPatients] = useState<Array<Patient>>([]);
   const [modalVisible, setModalVisible] = useState(false);
 
+  //funcion para cargar los pacientes
   const loadPatients = async () => {
     try {
       const data = await fetchPatients();
@@ -29,6 +30,7 @@ const PatientsListScreen = () => {
     }
   };
 
+  //funcion para manejar exito de creacion
   const handlePatientCreated = () => {
     loadPatients();
     setModalVisible(false);
